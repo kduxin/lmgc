@@ -1,0 +1,11 @@
+Cython
+tqdm
+numpy
+scipy
+torch <= 2.4
+pandas
+scikit-learn
+transformers
+h5py
+optimum
+sentence-transformers
