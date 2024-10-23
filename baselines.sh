@@ -25,7 +25,7 @@ for dataset in R2 ; do
     python kmeans.py \
         --docs_path $DOCS_PATH \
         --embedding_method t5-encoder \
-        --embedding_model_name_or_path data/pretrained/all-with_prefix-t5-base-v1 \
+        --embedding_model_name_or_path doc2query/all-with_prefix-t5-base-v1 \
         --repeats 100 \
         --n_init 10 \
         --output_path results/${dataset}.kmeans.t5-encoder.all-with_prefix-t5-base-v1.tsv \
