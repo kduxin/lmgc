@@ -9,3 +9,5 @@ transformers
 h5py
 optimum
 sentence-transformers
+setuptools-rust
+maturin

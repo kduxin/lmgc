@@ -1,0 +1,13 @@
+[package]
+name = "lmgc_utils"  # 这是模块的名字，可以根据需求更改
+version = "0.1.0"        # 版本号
+edition = "2021"         # Rust 语言的版本
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.22", features = ["extension-module"] }
+numpy = "0.22"
+ndarray = "0.16.1"
+tqdm = "0.7.0"

@@ -53,4 +53,4 @@ python -m lmgc.extract_loglik \
     --loglik_prefixes_path ${CACHE_ROOT}/${MODEL_ID}_${PREFIX}/baseq.uniform_${J}.loglik_prefixes.tsv \
     --output_path ${CACHE_ROOT}/${MODEL_ID}_${PREFIX}/baseq.uniform_${J}.loglik.tsv \
     --n_queries ${J} \
-    --query_max_len $QUERY_MAXLEN \
+    --prefix_length -1 \

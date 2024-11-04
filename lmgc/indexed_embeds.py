@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 from numpy import ndarray
 
-from .fromstring import fromstring
+from lmgc_utils import fromstring
 
 
 def timeit(func):
@@ -32,7 +32,7 @@ class IndexedEmbeddings:
         assert len(self.ids) == len(self.embs)
 
     @classmethod
-    def from_tsv(cls, path, header: bool = True):
+    def from_tsv(cls, path, header: bool = True, fast: bool = False):
         ids = []
         embs = []
         print(f"Loading indexed embeddings from {path} ...")
@@ -42,7 +42,10 @@ class IndexedEmbeddings:
                     continue
                 idx, embstr = line.strip().split("\t")
                 ids.append(idx)
-                emb = fromstring(embstr, count=-1, sep="|")
+                if fast:
+                    emb = fromstring(embstr, sep="|")
+                else:
+                    emb = np.fromstring(embstr, sep="|")
                 embs.append(emb)
         print(f"Loading complete.")
         return cls(ids=np.array(ids), embs=np.stack(embs))
@@ -81,4 +84,3 @@ class IndexedEmbeddings:
 
     def __len__(self, x):
         return len(self.ids)
-
