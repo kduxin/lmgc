@@ -107,7 +107,6 @@ def init(args, device_que):
                 args.model_path,
                 torch_dtype=torch.bfloat16,
             )
-            cache.model.to_bettertransformer()
         else:
             cache.model = transformers.T5ForConditionalGeneration.from_pretrained(
                 args.model_path

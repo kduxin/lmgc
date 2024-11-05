@@ -56,7 +56,7 @@ def main(args):
             handle = pool.apply_async(loglikelihood, args=(docs_batch,))
             handles.append((docids_batch, handle))
             docids_batch, docs_batch = [], []
-        
+
         for docids, handle in tqdm.tqdm(handles):
             logliks_prefixes = handle.get()  # (n_docs, n_total_queries) of list
             for docid, logliks_perdoc_prefixes in zip(docids, logliks_prefixes):
@@ -106,7 +106,6 @@ def init(args, device_que, queries):
             torch_dtype=torch.bfloat16,
             # load_in_4bit=True,
         )
-        cache.model.to_bettertransformer()
         cache.model = cache.model.to("cuda")
     else:
         cache.model = transformers.T5ForConditionalGeneration.from_pretrained(
@@ -234,10 +233,16 @@ if __name__ == "__main__":
         help="Outputs a TSV. Each row contains the log-likelihood values of all prefixes of a query, conditioned on a document.",
     )
     parser.add_argument(
-        "--doc_max_len", type=int, default=512, help="Maximum length of the document. Longer documents are truncated."
+        "--doc_max_len",
+        type=int,
+        default=512,
+        help="Maximum length of the document. Longer documents are truncated.",
     )
     parser.add_argument(
-        "--query_max_len", type=int, default=32, help="Maximum length of the query. Longer queries are truncated."
+        "--query_max_len",
+        type=int,
+        default=32,
+        help="Maximum length of the query. Longer queries are truncated.",
     )
     parser.add_argument(
         "--batch_size",
