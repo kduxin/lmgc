@@ -100,7 +100,7 @@ fn loglik_of_query_prefix<'py>(
 }
 
 #[pymodule]
-mod lmgc_utils {
+mod utils {
 
     #[pymodule_export]
     use super::fromstring;

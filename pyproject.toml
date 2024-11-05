@@ -1,2 +1,5 @@
 [build-system]
 requires = ["setuptools", "wheel", "setuptools-rust"]
+
+[tool.maturin]
+module-name = "lmgc.utils"

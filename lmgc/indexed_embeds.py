@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 from numpy import ndarray
 
-from lmgc_utils import fromstring
+from .utils import fromstring
 
 
 def timeit(func):

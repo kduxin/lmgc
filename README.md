@@ -21,8 +21,10 @@ pip install -r requirements.txt
 
 Compile our extension module by running
 ```bash
-python setup.py build_ext --inplace
+maturin develop --release
 ```
+`maturin` is a tool for compiling Rust lib into Python extension.
+It should have been installed in the execution of `pip install` above.
 
 
 # Quick start

@@ -1,7 +1,9 @@
 
-data/
-results/
-build/
+/data/
+/results/
+/build/
+/target/
+/dev/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
