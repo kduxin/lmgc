@@ -1,6 +1,6 @@
 import argparse
 import tqdm.auto as tqdm
-from lmgc_utils import (
+from .utils import (
     loglik_of_query_prefix,
     loglik_of_whole_query,
 )
@@ -26,7 +26,8 @@ def main(args):
     print("Writing...")
     with open(args.output_path, "wt") as f:
         f.write("docid\tlogprobs\n")
-        for docid, logprob_queries in tqdm.tqdm(docid2logprobs.items()):
+        docid_logprobs = sorted(docid2logprobs.items(), key=lambda x: "{:>10}".format(x[0]))
+        for docid, logprob_queries in tqdm.tqdm(docid_logprobs):
             logprob_str = "|".join([f"{logp:g}" for logp in logprob_queries.tolist()])
             f.write(f"{docid}\t{logprob_str}\n")
 

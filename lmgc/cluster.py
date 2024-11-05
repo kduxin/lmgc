@@ -230,7 +230,6 @@ def init(device_que):
     os.environ["CUDA_VISIBLE_DEVICES"] = device_que.get()
 
 
-
 def run_kmeans(args, X_shm_name, X_shape, X_dtype, n_clusters):
     shm = shared_memory.SharedMemory(name=X_shm_name)
     embs = np.ndarray(X_shape, dtype=X_dtype, buffer=shm.buf)
@@ -272,9 +271,25 @@ def run_lmgc(args, X_shm_name, X_shape, X_dtype, n_clusters):
 
 
 def main(args):
-    docs = pd.read_csv(args.docs_path, sep="\t")
+    docs = pd.read_csv(args.docs_path, sep="\t", dtype={"docid": str})
     indexed_embs = IndexedEmbeddings.from_tsv(args.embeddings_path)
     embs = indexed_embs.embs
+
+    def reorder_embs(embs, raw_ids, target_ids):
+        N = len(embs)
+        assert len(raw_ids) == len(set(raw_ids)) == N
+        assert set(raw_ids) == set(target_ids)
+
+        id2pos = {}
+        for i, raw_id in enumerate(raw_ids):
+            id2pos[raw_id] = i
+        mapping = np.zeros(N, dtype=np.int64)
+        for i, target_id in enumerate(target_ids):
+            mapping[i] = id2pos[target_id]
+
+        return embs[mapping]
+
+    embs = reorder_embs(indexed_embs.embs, raw_ids=indexed_embs.ids, target_ids=docs['docid'].tolist())
 
     topics = docs["topic"].unique()
     topic2idx = pd.Series(dict(zip(topics, range(len(topics)))))
