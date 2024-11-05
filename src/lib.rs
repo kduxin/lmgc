@@ -1,8 +1,8 @@
-use numpy::ndarray::{Array1, ArrayD, ArrayViewD, ArrayViewMutD};
-use numpy::{IntoPyArray, IxDyn, PyArray1, PyArrayDyn, PyArrayMethods, PyReadonlyArrayDyn};
+use numpy::ndarray::Array1;
+use numpy::{IntoPyArray, PyArray1};
 use pyo3::prelude::*;
-use pyo3::types::{IntoPyDict, PyDict};
-use pyo3::{pymodule, types::PyModule, Bound, PyResult, Python};
+use pyo3::types::PyDict;
+use pyo3::{pymodule, Bound, Python};
 use std::collections::HashMap;
 use std::f32::NAN;
 use std::fs::File;
@@ -39,7 +39,7 @@ where
         let docid = parts.next().unwrap();
         let queryid: usize = parts.next().unwrap().parse().unwrap();
 
-        if (queryid < n_queries) {
+        if queryid < n_queries {
             let loglikstr = parts.next().unwrap();
             let loglik: f64 = slice_fn(loglikstr);
             doc2logliks
