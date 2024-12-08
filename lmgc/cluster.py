@@ -295,7 +295,10 @@ def main(args):
     topic2idx = pd.Series(dict(zip(topics, range(len(topics)))))
     targets = topic2idx.loc[docs["topic"]].tolist()
 
-    n_clusters = len(topics)
+    if args.k is None:
+        n_clusters = len(topics)
+    else:
+        n_clusters = args.k
 
     ctx = get_context("spawn")
     if args.clustering_method == "kmeans":
@@ -414,6 +417,7 @@ def parse_args():
         choices=["power2", "naive"],
     )
     parser.add_argument("-J", type=int, default=None)
+    parser.add_argument("-k", type=int, default=None, help="Number of clusters. If None, set to the ground-truth cluster number.")
     return parser.parse_args()
 
 

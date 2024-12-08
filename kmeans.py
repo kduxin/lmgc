@@ -150,7 +150,10 @@ def main(args):
     topic2idx = pd.Series(dict(zip(topics, range(len(topics)))))
     targets = topic2idx.loc[docs["topic"]].tolist()
 
-    n_clusters = len(topics)
+    if args.k is None:
+        n_clusters = len(topics)
+    else:
+        n_clusters = args.k
 
     performance = defaultdict(list)
 
@@ -269,6 +272,7 @@ def parse_args():
     parser.add_argument("--verbose", type=int, default=0)
     parser.add_argument("--prefix", type=str, default="")
     parser.add_argument("--cuml", type=int, default=0)
+    parser.add_argument("-k", type=int, default=None, help="Number of clusters. If None, set to the ground-truth cluster number.")
     return parser.parse_args()
 
 
