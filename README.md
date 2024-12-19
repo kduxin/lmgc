@@ -1,7 +1,32 @@
 # Introduction
 
 This repository contains the code for reproducing the results in the paper
-``Information-Theoretic Generative Clustering of Documents'' by Xin Du and Kumiko Tanaka-Ishii.
+"Information-Theoretic Generative Clustering of Documents" by Xin Du and Kumiko Tanaka-Ishii.
+
+- For the paper, please find it at: http://arxiv.org/abs/2412.13534
+
+Generative clustering is a novel clustering paradigm to use generative language
+models for document clustering. The language model evaluates the "translation"
+probability of each document into a set of short texts (or "queries").
+Then, clustering is performed to minimize an information-theoretic distortion
+due to the clustering process.
+
+Specifically, we solve the following technical difficulites in this paper:
+1. Estimating the KL divergence of two distributions over word sequences by using importance sampling.
+2. Choice of the "optimal" proposal distribution for importance sampling.
+3. Stable discovery the true clustering structure through variance control.
+
+Our method achieves the state-of-the-art clustering performance on multiple document clustering datasets.
+The following table displays the normalized mutual information scores, a summary of the tested methods.
+
+| | R2 | R5 | AG News | Yahoo! Answers |
+|-|-|-|-|-|
+| Bag-of-words + kmeans | 3.3 | 20.0 | 1.68 | 3.1 | 
+| BERT + kmeans | 31.1 | 27.3 | 38.2 | 9.4 |
+| Best of multiple SBERT models + kmeans | 65.6 | 68.9 | 56.7 | 42.8 |
+| Best of multiple non-k-means methods | 62.3 | 61.5 | 60.3 | 36.1 |
+|-|-|-|-|-|
+| GC (ours, a single model) | **77.8** | **71.5** | **64.2** | **43.7** | 
 
 
 # Environment
