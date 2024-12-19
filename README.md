@@ -58,7 +58,7 @@ To reproduce the results for the R2 dataset, run
 ```bash
 $ bash scripts/prepare.sh
 ```
-which would takes around 2 minutes on 8 x RTX4090 GPUs.
+which would takes no more than 20 minutes on a single GPU card.
 
 Then, execute clustering by running
 ```bash
