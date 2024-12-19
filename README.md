@@ -9,10 +9,10 @@ Generative clustering is a novel clustering paradigm to use generative language
 models for document clustering. The language model evaluates the "translation"
 probability of each document into a set of short texts (or "queries").
 Then, clustering is performed to minimize an information-theoretic distortion
-due to the clustering process.
+due to the clustering process, defined with these translation probabilities.
 
 Specifically, we solve the following technical difficulites in this paper:
-1. Estimating the KL divergence of two distributions over word sequences by using importance sampling.
+1. Estimate the KL divergence of distributions over the infinite set of word sequences by using importance sampling.
 2. Choice of the "optimal" proposal distribution for importance sampling.
 3. Stable discovery the true clustering structure through variance control.
 
